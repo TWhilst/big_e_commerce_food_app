@@ -72,7 +72,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       var currentTrans = _height * (1 - currentScale)/2;
       matrix = Matrix4.diagonal3Values(1, currentScale, 1);
       matrix = Matrix4.diagonal3Values(1, currentScale, 1)..setTranslationRaw(0, currentTrans, 0);
-      matrix= Matrix4.
     } else if(index == _currentValue.floor() - 1) {
       // the aim of this is to give the page after the current page a value of scaleFactor
       var currentScale = 1 - (_currentValue - index)* (1-scaleFactor);
