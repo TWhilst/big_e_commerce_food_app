@@ -1,5 +1,6 @@
 import 'package:big_e_commerce_app/home/food_page_body.dart';
 import 'package:big_e_commerce_app/utils/colors.dart';
+import 'package:big_e_commerce_app/utils/dimensions.dart';
 import 'package:big_e_commerce_app/widgets/big_text.dart';
 import 'package:big_e_commerce_app/widgets/small_text.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,12 @@ class _MainFoodPageState extends State<MainFoodPage> {
         children: [
           Container(
             child: Container(
-              margin: EdgeInsets.only(top: 45, bottom: 15),
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              margin: EdgeInsets.only(top: height45, bottom: height15),
+              padding: EdgeInsets.symmetric(horizontal: width20),
               child: MainFoodAppBar(),
-            )
+            ),
           ),
-          FoodPageBody()
+          FoodPageBody(),
         ],
       ),
     );
@@ -54,13 +55,13 @@ class MainFoodAppBar extends StatelessWidget {
         ),
         Center(
           child: Container(
-            width: 45,
-            height: 45,
-            child: Icon(Icons.search, color: Colors.white,),
+            width: height45,
+            height: height45,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(radius15),
               color: mainColor,
             ),
+            child: Icon(Icons.search, color: Colors.white, size: iconSize24,),
           ),
         ),
       ],

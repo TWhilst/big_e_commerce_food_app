@@ -1,7 +1,8 @@
+import 'package:big_e_commerce_app/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class BigText extends StatelessWidget {
-  BigText({Key? key, this.overflow = TextOverflow.ellipsis, this.color = const Color(0xFF332d2b), this.size = 20, required this.text}) : super(key: key);
+  BigText({Key? key, this.overflow = TextOverflow.ellipsis, this.color = const Color(0xFF332d2b), this.size = 0, required this.text}) : super(key: key);
 
   String text;
   double? size;
@@ -16,7 +17,7 @@ class BigText extends StatelessWidget {
       overflow: overflow,
       style: TextStyle(
         color: color,
-        fontSize: size,
+        fontSize: size==0? font20 : size,
         fontWeight: FontWeight.w400,
         fontFamily: "Roboto",
       ),
