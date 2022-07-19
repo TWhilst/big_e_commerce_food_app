@@ -1,11 +1,13 @@
-import 'package:big_e_commerce_app/home/components/slider_section.dart';
+import 'package:big_e_commerce_app/utils/colors.dart';
 import 'package:big_e_commerce_app/utils/dimensions.dart';
 import 'package:big_e_commerce_app/widgets/big_text.dart';
 import 'package:big_e_commerce_app/widgets/icon_and_text.dart';
 import 'package:big_e_commerce_app/widgets/small_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import '../utils/colors.dart';
+
+import 'components/slider_section.dart';
+
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);
@@ -19,7 +21,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   PageController pageController = PageController(viewportFraction: 0.85);
   var _currentValue = 0.0;
   double scaleFactor = 0.8;
-  double _height = pageViewContainer;
 
   @override
   void initState() {
@@ -27,7 +28,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     pageController.addListener(() {
       setState(() {
         _currentValue = pageController.page!;
-        print(_currentValue.toString());
       });
     });
   }
@@ -40,12 +40,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.width);
     return Expanded( 
       child: SingleChildScrollView( 
         child: Column(
           children: [
-            SliderSection(),
+            const SliderSection(),
             DotsIndicator(
               dotsCount: 5,
               position: _currentValue,
@@ -81,7 +80,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             ),
             ListView.builder(
               shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return Container(
@@ -94,7 +93,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(radius20),
                             color: Colors.white38,
-                            image: DecorationImage(
+                            image: const DecorationImage(
                               image: AssetImage("assets/images/food0.png"),
                               fit: BoxFit.cover,
                             ),
@@ -122,7 +121,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                   SizedBox(height: height10,),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
+                                    children: const [
                                       IconAndText(
                                         icon: Icons.circle_sharp,
                                         text: "Normal",

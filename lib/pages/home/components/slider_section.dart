@@ -16,8 +16,8 @@ class _SliderSection extends State<SliderSection> {
   // viewportFraction makes the next slide and and the previous slide visible
   PageController pageController = PageController(viewportFraction: 0.85);
   var _currentValue = 0.0;
-  double scaleFactor = 0.8;
-  double _height = pageViewContainer;
+  final double _scaleFactor = 0.8;
+  final double _height = pageViewContainer;
 
   @override
   void initState() {
@@ -25,7 +25,6 @@ class _SliderSection extends State<SliderSection> {
     pageController.addListener(() {
       setState(() {
         _currentValue = pageController.page!;
-        print(_currentValue.toString());
       });
     });
   }
@@ -52,13 +51,13 @@ class _SliderSection extends State<SliderSection> {
   }
 
   Widget buildPageItem(int index) {
-    Matrix4 matrix = new Matrix4.identity();
+    Matrix4 matrix = Matrix4.identity();
     // _currentPageValue.floor() is the value of the page when the page is at its index form (0, 1, 2, 3, 4)
     // _currentPageValue.floor() is the page on the screen
     // the if statement is saying that is the index is = to the currentpage then the
     if(index == _currentValue.floor()) {
       // currentScale is equal to 1 - 0 because ((_currentValue-index)* (1-scaleFactor)) will give us 0 due to bodmas
-      var currentScale = 1- (_currentValue - index)* (1-scaleFactor);
+      var currentScale = 1- (_currentValue - index)* (1- _scaleFactor);
       var currentTrans = _height * (1 - currentScale)/2;
       // diagional3Values is used to set the width(x), height(y) and (z)
       // ..setTranslationRaw is used to set the margin or change position
@@ -66,19 +65,19 @@ class _SliderSection extends State<SliderSection> {
       // the next thing we are trying to do is to bring down the one by the right of the current page to the center
     } else if(index == _currentValue.floor() + 1) {
       // the aim of this is to give the page after the current page a value of scaleFactor
-      var currentScale = scaleFactor - (_currentValue - index + 1) * (1-scaleFactor);
+      var currentScale = _scaleFactor - (_currentValue - index + 1) * (1 - _scaleFactor);
       var currentTrans = _height * (1 - currentScale)/2;
       matrix = Matrix4.diagonal3Values(1, currentScale, 1);
       matrix = Matrix4.diagonal3Values(1, currentScale, 1)..setTranslationRaw(0, currentTrans, 0);
     } else if(index == _currentValue.floor() - 1) {
       // the aim of this is to give the page after the current page a value of scaleFactor
-      var currentScale = 1 - (_currentValue - index)* (1-scaleFactor);
+      var currentScale = 1 - (_currentValue - index)* (1 - _scaleFactor);
       var currentTrans = _height * (1 - currentScale)/2;
       matrix = Matrix4.diagonal3Values(1, currentScale, 1);
       matrix = Matrix4.diagonal3Values(1, currentScale, 1)..setTranslationRaw(0, currentTrans, 0);
     } else {
       var currentScale = 0.8;
-      matrix = Matrix4.diagonal3Values(1, currentScale, 1)..setTranslationRaw(0, _height*(1-scaleFactor)/2, 1);
+      matrix = Matrix4.diagonal3Values(1, currentScale, 1)..setTranslationRaw(0, _height*(1 - _scaleFactor)/2, 1);
     }
 
     return Transform(
@@ -90,8 +89,8 @@ class _SliderSection extends State<SliderSection> {
             margin: EdgeInsets.symmetric(horizontal: width10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(radius30),
-                color: index.isEven ? Color(0xFF69C5DF) : Color(0xFF9294CC),
-                image: DecorationImage(
+                color: index.isEven ? const Color(0xFF69C5DF) : const Color(0xFF9294CC),
+                image: const DecorationImage(
                   image: AssetImage("assets/images/food0.png"),
                   fit: BoxFit.cover,
                 )),
@@ -108,7 +107,7 @@ class _SliderSection extends State<SliderSection> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(radius20),
                   color: Colors.white,
-                  boxShadow: [
+                  boxShadow: const[
                     BoxShadow(
                       offset: Offset(0, 5),
                       blurRadius: 5,
@@ -144,38 +143,43 @@ class _SliderSection extends State<SliderSection> {
 
 class FoodDetails extends StatelessWidget {
   final String text;
-  const FoodDetails({
-    Key? key, required this.text,
+  double? size;
+  FoodDetails({
+    Key? key, required this.text, this.size = 0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final smallSize = font20;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BigText(text: text),
+        BigText(
+          text: text,
+          size: size == 0 ? smallSize : size,
+        ),
         SizedBox(height: height10,),
         Row(
           children: [
             Wrap(
               children: List.generate(
                 5,
-                    (index) => Icon(
+                    (index) => const Icon(
                   Icons.star,
                   color: mainColor,
                   size: 15,
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             SmallText(text: "4.5"),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             SmallText(text: "1287"),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             SmallText(text: "comments"),
@@ -186,7 +190,7 @@ class FoodDetails extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: const [
             IconAndText(
               icon: Icons.circle_sharp,
               text: "Normal",

@@ -1,9 +1,10 @@
-import 'package:big_e_commerce_app/home/food_page_body.dart';
 import 'package:big_e_commerce_app/utils/colors.dart';
 import 'package:big_e_commerce_app/utils/dimensions.dart';
 import 'package:big_e_commerce_app/widgets/big_text.dart';
 import 'package:big_e_commerce_app/widgets/small_text.dart';
 import 'package:flutter/material.dart';
+
+import 'food_page_body.dart';
 
 class MainFoodPage extends StatefulWidget {
   const MainFoodPage({Key? key}) : super(key: key);
@@ -22,10 +23,10 @@ class _MainFoodPageState extends State<MainFoodPage> {
             child: Container(
               margin: EdgeInsets.only(top: height45, bottom: height15),
               padding: EdgeInsets.symmetric(horizontal: width20),
-              child: MainFoodAppBar(),
+              child: const MainFoodAppBar(),
             ),
           ),
-          FoodPageBody(),
+          const FoodPageBody(),
         ],
       ),
     );
@@ -48,7 +49,7 @@ class MainFoodAppBar extends StatelessWidget {
             Row(
               children: [
                 SmallText(text: "Narsingdi", color: Colors.black54,),
-                Icon(Icons.arrow_drop_down_rounded)
+                const Icon(Icons.arrow_drop_down_rounded)
               ],
             ),
           ],

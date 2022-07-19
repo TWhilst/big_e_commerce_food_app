@@ -18,13 +18,19 @@ final width15 = screenHeight/53.66;
 final width30 = screenHeight/26.83;
 
 final font20 = screenHeight/40.25;
+final font26 = screenHeight/30.96;
+final font16 = screenHeight/50.3125;
+
 final radius20 = screenHeight/40.25;
 final radius30 = screenHeight/26.83;
 final radius15 = screenHeight/53.66;
 
 //screen height is 805
 final iconSize24 = screenHeight/33.54;
+final iconSize16 = screenHeight/50.3125;
 
 // screen width is 384
 final listViewImgSize = screenWidth/3.2;
 final listViewTextContSize = screenWidth/3.84;
+
+final popularFoodImgSize = screenHeight/2.3;
