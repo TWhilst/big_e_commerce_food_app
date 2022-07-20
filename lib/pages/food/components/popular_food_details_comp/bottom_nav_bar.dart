@@ -4,8 +4,16 @@ import 'package:big_e_commerce_app/widgets/big_text.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
+  final IconData? iconData1;
+  final Color? color;
+  final double num2;
+  final String text;
   const BottomNavBar({
     Key? key,
+    this.iconData1,
+    this.num2 = 10,
+    this.text = "Add to cart",
+    this.color,
   }) : super(key: key);
 
   @override
@@ -34,9 +42,13 @@ class BottomNavBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius20),
               color: Colors.white,
             ),
-            child: Row(
+            child: iconData1 != null?
+            Icon(
+              iconData1,
+              color: color,
+            ) : Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.remove,
                   color: signColor,
                 ),
@@ -47,7 +59,7 @@ class BottomNavBar extends StatelessWidget {
                 SizedBox(
                   width: width10 / 2,
                 ),
-                Icon(
+                const Icon(
                   Icons.add,
                   color: signColor,
                 ),
@@ -66,7 +78,7 @@ class BottomNavBar extends StatelessWidget {
               color: mainColor,
             ),
             child: BigText(
-              text: "\$10 | Add to cart",
+              text: "\$$num2 | $text",
               color: Colors.white,
             ),
           ),

@@ -1,4 +1,4 @@
-import 'package:big_e_commerce_app/pages/food/components/popular_food_details_comp/bottom_navigation_bar.dart';
+import 'package:big_e_commerce_app/pages/food/components/popular_food_details_comp/bottom_nav_bar.dart';
 import 'package:big_e_commerce_app/pages/home/components/slider_section.dart';
 import 'package:big_e_commerce_app/utils/dimensions.dart';
 import 'package:big_e_commerce_app/widgets/app_icons.dart';
