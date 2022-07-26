@@ -16,7 +16,7 @@ class _ExpandableTextState extends State<ExpandableText> {
   late String secondHalf;
 
   bool hiddenText = true;
-  double textHeight = screenHeight/5.63;
+  double textHeight = Dimensions.screenHeight/5.63;
 
   void textDetails() {
     // the condition says that if the text imputed is greater than the textHeight do this
@@ -43,14 +43,14 @@ class _ExpandableTextState extends State<ExpandableText> {
       child: secondHalf == ""?
       SmallText(
         text: firstHalf,
-        size: font16,
-        color: paraColor,
+        size: Dimensions.font16,
+        color: AppColors.paraColor,
       ) : Column(
         children: [
           SmallText(
             text: hiddenText? ("$firstHalf...") : (firstHalf+secondHalf),
-            size: font16,
-            color: paraColor,
+            size: Dimensions.font16,
+            color: AppColors.paraColor,
             height: 1.8,
           ),
 
@@ -63,8 +63,8 @@ class _ExpandableTextState extends State<ExpandableText> {
             },
             child: Row(
               children: [
-                SmallText(text: hiddenText? "Show more" : "Show less", color: mainColor,),
-                Icon(hiddenText? Icons.arrow_drop_down : Icons.arrow_drop_up, color: mainColor,),
+                SmallText(text: hiddenText? "Show more" : "Show less", color: AppColors.mainColor,),
+                Icon(hiddenText? Icons.arrow_drop_down : Icons.arrow_drop_up, color: AppColors.mainColor,),
               ],
             ),
           ),

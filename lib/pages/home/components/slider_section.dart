@@ -1,9 +1,13 @@
+import 'package:big_e_commerce_app/controllers/popular_product_controller.dart';
+import 'package:big_e_commerce_app/models/products_model.dart';
+import 'package:big_e_commerce_app/routes/route_helper.dart';
+import 'package:big_e_commerce_app/utils/app_constants.dart';
 import 'package:big_e_commerce_app/utils/colors.dart';
 import 'package:big_e_commerce_app/utils/dimensions.dart';
-import 'package:big_e_commerce_app/widgets/big_text.dart';
-import 'package:big_e_commerce_app/widgets/icon_and_text.dart';
-import 'package:big_e_commerce_app/widgets/small_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'food_details.dart';
 
 class SliderSection extends StatefulWidget {
   const SliderSection({Key? key}) : super(key: key);
@@ -17,7 +21,7 @@ class _SliderSection extends State<SliderSection> {
   PageController pageController = PageController(viewportFraction: 0.85);
   var _currentValue = 0.0;
   final double _scaleFactor = 0.8;
-  final double _height = pageViewContainer;
+  final double _height = Dimensions.pageViewContainer;
 
   @override
   void initState() {
@@ -37,20 +41,97 @@ class _SliderSection extends State<SliderSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // color: Colors.red,
-      height: pageView,
-      child: PageView.builder(
-        controller: pageController,
-        itemCount: 5,
-        itemBuilder: (context, index,) {
-          return buildPageItem(index);
-        },
-      ),
+    //<PopularProductController> helps us to select what we want from the builder
+    return GetBuilder<PopularProductController>(
+      builder: (pController) {
+        return pController.isLoading? SizedBox(
+          // color: Colors.red,
+          height: Dimensions.pageView,
+          child: PageView.builder(
+            controller: pageController,
+            // context.popularProductList.length.... the context has the details of the PopularProductController
+            // popularProductList.length has the details and we want the length of that details
+            itemCount: pController.popularProductList.length,
+            itemBuilder: (context, index,) {
+              return buildPageItem(index, pController.popularProductList[index]);
+            },
+          ),
+        ) : const Center(child: CircularProgressIndicator(color: AppColors.mainColor,));
+      }
     );
   }
 
-  Widget buildPageItem(int index) {
+
+
+
+  Widget buildPageItem(int index, ProductModel products,) {
+    return Transform(
+      transform: details(index),
+      child: Stack(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(RouteHelper.getPopularFood(index));
+            },
+            child: Container(
+              height: Dimensions.pageViewContainer,
+              margin: EdgeInsets.symmetric(horizontal: Dimensions.width10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                  color: index.isEven ? const Color(0xFF69C5DF) : const Color(0xFF9294CC),
+                  image: DecorationImage(
+                    // using $ in strings is what we call interpolation
+                    image: NetworkImage("${AppConstants.baseUrl}/uploads/${products.img!}"),
+                    fit: BoxFit.cover,
+                  )),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: Dimensions.pageViewTextContainer,
+              margin: EdgeInsets.only(
+                left: Dimensions.width30,
+                right: Dimensions.width30,
+                bottom: Dimensions.height30,
+              ),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  color: Colors.white,
+                  boxShadow: const[
+                    BoxShadow(
+                      offset: Offset(0, 5),
+                      blurRadius: 5,
+                      color: Color(0xFFE8E8E8),
+                    ),
+                    BoxShadow(
+                      offset: Offset(-5, 0),
+                      color: Colors.white,
+                    ),
+                    BoxShadow(
+                      offset: Offset(5, 0),
+                      color: Colors.white,
+                    ),
+                  ]
+              ),
+              child: Container(
+                padding: EdgeInsets.only(
+                  top: Dimensions.height15,
+                  left: 15,
+                  right: 15,
+                ),
+                child: FoodDetails(
+                  text: products.name!,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
+  Matrix4 details(int index) {
     Matrix4 matrix = Matrix4.identity();
     // _currentPageValue.floor() is the value of the page when the page is at its index form (0, 1, 2, 3, 4)
     // _currentPageValue.floor() is the page on the screen
@@ -79,136 +160,13 @@ class _SliderSection extends State<SliderSection> {
       var currentScale = 0.8;
       matrix = Matrix4.diagonal3Values(1, currentScale, 1)..setTranslationRaw(0, _height*(1 - _scaleFactor)/2, 1);
     }
-
-    return Transform(
-      transform: matrix,
-      child: Stack(
-        children: [
-          Container(
-            height: pageViewContainer,
-            margin: EdgeInsets.symmetric(horizontal: width10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(radius30),
-                color: index.isEven ? const Color(0xFF69C5DF) : const Color(0xFF9294CC),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/food0.png"),
-                  fit: BoxFit.cover,
-                )),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: pageViewTextContainer,
-              margin: EdgeInsets.only(
-                left: width30,
-                right: width30,
-                bottom: height30,
-              ),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(radius20),
-                  color: Colors.white,
-                  boxShadow: const[
-                    BoxShadow(
-                      offset: Offset(0, 5),
-                      blurRadius: 5,
-                      color: Color(0xFFE8E8E8),
-                    ),
-                    BoxShadow(
-                      offset: Offset(-5, 0),
-                      color: Colors.white,
-                    ),
-                    BoxShadow(
-                      offset: Offset(5, 0),
-                      color: Colors.white,
-                    ),
-                  ]
-              ),
-              child: Container(
-                padding: EdgeInsets.only(
-                  top: height15,
-                  left: 15,
-                  right: 15,
-                ),
-                child: FoodDetails(
-                  text: "Chinese Side",
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    return matrix;
   }
 }
 
-class FoodDetails extends StatelessWidget {
-  final String text;
-  double? size;
-  FoodDetails({
-    Key? key, required this.text, this.size = 0,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    final smallSize = font20;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        BigText(
-          text: text,
-          size: size == 0 ? smallSize : size,
-        ),
-        SizedBox(height: height10,),
-        Row(
-          children: [
-            Wrap(
-              children: List.generate(
-                5,
-                    (index) => const Icon(
-                  Icons.star,
-                  color: mainColor,
-                  size: 15,
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            SmallText(text: "4.5"),
-            const SizedBox(
-              width: 10,
-            ),
-            SmallText(text: "1287"),
-            const SizedBox(
-              width: 10,
-            ),
-            SmallText(text: "comments"),
-          ],
-        ),
-        SizedBox(
-          height: height20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            IconAndText(
-              icon: Icons.circle_sharp,
-              text: "Normal",
-              iconColor: iconColor1,
-            ),
-            IconAndText(
-              icon: Icons.location_on,
-              text: "1.7km",
-              iconColor: mainColor,
-            ),
-            IconAndText(
-              icon: Icons.access_time_rounded,
-              text: "32mins",
-              iconColor: iconColor2,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
+
+
+
+
+

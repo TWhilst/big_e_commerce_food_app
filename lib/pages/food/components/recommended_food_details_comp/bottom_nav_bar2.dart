@@ -3,9 +3,8 @@ import 'package:big_e_commerce_app/utils/dimensions.dart';
 import 'package:big_e_commerce_app/widgets/big_text.dart';
 import 'package:flutter/material.dart';
 
-
-class BottomNavBar extends StatelessWidget {
-  const  BottomNavBar({
+class BottomNavBar2 extends StatelessWidget {
+  const  BottomNavBar2({
     Key? key,
   }) : super(key: key);
 
@@ -35,16 +34,9 @@ class BottomNavBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(Dimensions.radius20),
               color: Colors.white,
             ),
-            child: Row(
-              children: [
-                const Icon(Icons.remove, color: AppColors.signColor,),
-                SizedBox(width: Dimensions.width10 / 2,),
-                BigText(text: "0"),
-                SizedBox(width: Dimensions.width10 / 2,),
-                GestureDetector(
-                  child: const Icon(Icons.add, color: AppColors.signColor,),
-                ),
-              ],
+            child: const Icon(
+              Icons.favorite,
+              color: AppColors.mainColor,
             ),
           ),
           Container(

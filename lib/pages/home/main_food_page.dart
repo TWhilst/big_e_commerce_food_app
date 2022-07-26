@@ -21,8 +21,8 @@ class _MainFoodPageState extends State<MainFoodPage> {
         children: [
           Container(
             child: Container(
-              margin: EdgeInsets.only(top: height45, bottom: height15),
-              padding: EdgeInsets.symmetric(horizontal: width20),
+              margin: EdgeInsets.only(top: Dimensions.height45, bottom: Dimensions.height15),
+              padding: EdgeInsets.symmetric(horizontal: Dimensions.width20),
               child: const MainFoodAppBar(),
             ),
           ),
@@ -45,7 +45,7 @@ class MainFoodAppBar extends StatelessWidget {
       children: [
         Column(
           children: [
-            BigText(text: "Bangledesh", color: mainColor,),
+            BigText(text: "Bangledesh", color: AppColors.mainColor,),
             Row(
               children: [
                 SmallText(text: "Narsingdi", color: Colors.black54,),
@@ -56,13 +56,13 @@ class MainFoodAppBar extends StatelessWidget {
         ),
         Center(
           child: Container(
-            width: height45,
-            height: height45,
+            width: Dimensions.height45,
+            height: Dimensions.height45,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(radius15),
-              color: mainColor,
+              borderRadius: BorderRadius.circular(Dimensions.radius15),
+              color: AppColors.mainColor,
             ),
-            child: Icon(Icons.search, color: Colors.white, size: iconSize24,),
+            child: Icon(Icons.search, color: Colors.white, size: Dimensions.iconSize24,),
           ),
         ),
       ],
